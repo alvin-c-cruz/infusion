@@ -1,0 +1,3 @@
+FLASK_APP=infusion
+FLASK_ENV=development
+DEBUG=True

@@ -1,5 +1,5 @@
 import secrets
-from os.path import join
+import os
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -18,7 +18,10 @@ def create_app():
 
     app.config['SECRET_KEY'] = secrets.token_hex(64)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + join(app.instance_path, "data.db")
+    if not os.path.isdir(app.instance_path):
+        os.makedirs(app.instance_path)
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.join(app.instance_path, "data.db")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     login_manager = LoginManager()
