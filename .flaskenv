@@ -1,3 +1,3 @@
-FLASK_APP=infusion
+FLASK_APP=flask_app
 FLASK_ENV=development
 DEBUG=True
