@@ -1,7 +1,8 @@
 import secrets
 import os
-from flask import Flask
+from flask import Flask,redirect, url_for, abort, request
 from flask_login import LoginManager
+from http import HTTPStatus
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
@@ -30,6 +31,12 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return blueprints.user.User.query.get(user_id)
+
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        if request.blueprint == 'api':
+            abort(HTTPStatus.UNAUTHORIZED)
+        return redirect(url_for('landing_page.home'))
 
     for module_ in dir(blueprints):
         module_obj = getattr(blueprints, module_)

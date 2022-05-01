@@ -1,0 +1,6 @@
+{% macro string_field(field) %}
+    <div class="form-group  required">
+        {{ field.label(class="control-label") }}
+        {{ field(class="form-control", autocomplete="off") }}
+    </div>
+{% endmacro %}
