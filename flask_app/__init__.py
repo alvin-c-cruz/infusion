@@ -5,9 +5,12 @@ from flask_login import LoginManager
 from http import HTTPStatus
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_bootstrap import Bootstrap
+from flask_mail import Mail
+from flask_bcrypt import Bcrypt
 
 db = SQLAlchemy()
+mail = Mail()
+bcrypt = Bcrypt()
 
 from . import blueprints
 
@@ -15,15 +18,14 @@ from . import blueprints
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
 
-    Bootstrap(app)
+    app.config.from_pyfile(os.path.join(app.instance_path, "config.py"))
 
-    app.config['SECRET_KEY'] = secrets.token_hex(64)
+    # sqlalchemy settings
+    app.config ['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.join(app.instance_path, "data.db")
+    app.config ['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     if not os.path.isdir(app.instance_path):
         os.makedirs(app.instance_path)
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.join(app.instance_path, "data.db")
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     login_manager = LoginManager()
     login_manager.init_app(app)
@@ -42,6 +44,9 @@ def create_app():
         module_obj = getattr(blueprints, module_)
         if hasattr(module_obj, 'bp'):
             app.register_blueprint(getattr(module_obj, 'bp'))
+
+    bcrypt.init_app(app)
+    mail.init_app(app)
 
     db.init_app(app)
     Migrate(app, db)

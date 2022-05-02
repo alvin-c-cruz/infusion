@@ -23,7 +23,7 @@
             </div>
         {% else %}
             <div class="navbar-nav">
-                <a class="nav-link text-white" href="#">Sample Features</a>
+                <a class="nav-link text-white" href="{{ url_for('yakult.home') }}">Yakult Dosage</a>
             </div>
             <div class="navbar-nav justify-content-end">
                 <a class="nav-link text-white" href="#">Sample Features</a>
@@ -40,11 +40,11 @@
             </div>
             {% if current_user.is_authenticated %}
             <div class="navbar-nav">
-                <a class="nav-link text-white" href="#">Log Out</a>
+                <a class="nav-link text-white" href="{{ url_for('user.logout') }}">Log Out</a>
             </div>
             {% else %}
             <div class="navbar-nav">
-                <a class="nav-link text-white" href="#">Log In</a>
+                <a class="nav-link text-white" href="{{ url_for('user.login') }}">Log In</a>
             </div>
             <div class="navbar-nav">
                 <a class="nav-link text-white" href="{{ url_for('user.register') }}">Register</a>

@@ -10,3 +10,5 @@ class User(UserMixin, db.Model):
     admin = db.Column(db.Boolean(), default=False)
     registered_on = db.Column(db.DateTime, nullable=True)
     confirmed_on = db.Column(db.DateTime, nullable=True)
+
+
