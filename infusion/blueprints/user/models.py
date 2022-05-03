@@ -1,4 +1,4 @@
-from flask_app import db
+from infusion import db
 from flask_login import UserMixin
 
 

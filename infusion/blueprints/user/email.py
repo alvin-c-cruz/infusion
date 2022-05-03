@@ -1,5 +1,5 @@
 from flask_mail import Message
-from flask_app import mail
+from infusion import mail
 
 
 def send_email(app, to, subject, html):

@@ -1,5 +1,5 @@
 import pytest
-from flask_app import create_app
+from infusion import create_app
 
 
 @pytest.fixture

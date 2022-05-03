@@ -21,8 +21,8 @@ def create_app():
     app.config.from_pyfile(os.path.join(app.instance_path, "config.py"))
 
     # sqlalchemy settings
-    app.config ['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.join(app.instance_path, "data.db")
-    app.config ['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # app.config ['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.join(app.instance_path, "data.db")
+    # app.config ['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     if not os.path.isdir(app.instance_path):
         os.makedirs(app.instance_path)

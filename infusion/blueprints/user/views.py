@@ -3,7 +3,7 @@ from flask_login import login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
-from flask_app import db
+from infusion import db
 from .forms import UserForm, LoginForm
 from .models import User
 from .token import generate_confirmation_token, confirm_token
@@ -41,7 +41,7 @@ def register():
             db.session.add(user)
             db.session.commit()
 
-            send_confirmation_email(email)
+            # send_confirmation_email(email)
 
             login_user(user)
 
